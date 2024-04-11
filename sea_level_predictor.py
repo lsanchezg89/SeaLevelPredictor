@@ -10,7 +10,11 @@ def draw_plot():
     # Create scatter plot
     fig, ax = plt.subplots(figsize=(8, 8))
 
-    ax.scatter(df['Year'], df['CSIRO Adjusted Sea Level'])
+    ax.scatter(
+        df['Year'],
+        df['CSIRO Adjusted Sea Level'],
+        label='Actual Data'
+    )
 
     # Create first line of best fit
     slope_from_1880, intercept_from_1880, _, _, _ = linregress(df['Year'], df['CSIRO Adjusted Sea Level'])
@@ -20,7 +24,8 @@ def draw_plot():
     ax.plot(
         years_from_1880_to_2050,
         predicted_sea_level_since_1880,
-        color='red'
+        color='red',
+        label='Best Fit Prediction (1880 to 2050)'
     )
 
     # Create second line of best fit
@@ -32,13 +37,15 @@ def draw_plot():
     ax.plot(
         years_from_2000_to_2050,
         predicted_sea_level_since_2000,
-        color='purple'
+        color='purple',
+        label='Best Fit Prediction (2000 to 2050)'
     )
 
     # Add labels and title
     ax.set_xlabel('Year')
     ax.set_ylabel('Sea Level (inches)')
     ax.set_title('Rise in Sea Level')
+    ax.legend()
     
     # Save plot and return data for testing (DO NOT MODIFY)
     plt.savefig('sea_level_plot.png')
